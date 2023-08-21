@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ResponseController!{% endblock %}
+
+{% block body %}
+    <h1>Controller Response</h1>
+
+    <ul>
+        <li>
+            <a href="{{ path('response_index') }}">Response -> render()</a>
+        </li>
+        <li>
+            <a href="{{ path('response_redirection') }}">
+                Redirect Response -> redirect() ou redirectToRoute()</a>
+        </li>
+        <li>
+            <a href="{{ path('response_json') }}">Json Response -> json()</a>
+        </li>
+        <li>
+            <a href="{{ path('response_file') }}">Binary File Response -> file()</a>
+        </li>
+        <li>Streamed Response</li>
+    </ul>
+
+    {# commentaire twig #}
+    {# ul>li*3 #}
+{% endblock %}
