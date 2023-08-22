@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RequestController!{% endblock %}
+
+{% block body %}
+    <h1>Request Controller</h1>
+
+    {# http:// .... /request?name=stephane #}
+    <a href="{{ path('request_index', { 'name': "stephane" }) }}">Stéphane</a> -
+    <a href="{{ path('request_index', { 'name': "vera" }) }}">Vera</a> -
+    <a href="{{ path('request_index') }}">Supprimer les filtres</a>
+
+    <p>Hello {{ name }}</p>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RequestController!{% endblock %}
+
+{% block body %}
+    <h1>Request Controller</h1>
+    <h2>Session</h2>
+
+    {# permet d'afficher les messages flash de la clé "success" #}
+    {% for message in app.flashes('success') %}
+        <p style="color: limegreen">{{ message }}</p>
+    {% endfor %}
+
+    <p>
+        {# http:// .... /request/session?value=pomme #}
+        <a href="{{ path('request_session', { 'value' : 'pomme' }) }}">Sauvegarder une valeur en session</a> -
+
+        <a href="{{ path('request_session_show') }}">Voir la valeur sauvegardée</a>
+    </p>
+
+{% endblock %}

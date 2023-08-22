@@ -26,14 +26,18 @@ class ResponseController extends AbstractController
     {
         $user = ['firstname' => "John", 'lastname' => "Doe", 'email' => "john.doe@gmail.com"];
 
-        return $this->json($user);
+        // return $this->json($user);
+
+        return new JsonResponse($user);
     }
 
     #[Route('/response/file', name: 'response_file')]
     public function fileResponse(): BinaryFileResponse
     {
 
-        return $this->file('download/cafe.jpg');
+        // return $this->file('download/cafe.jpg');
+
+        return new BinaryFileResponse('download/cafe.jpg');
     }
 
     #[Route('/response/redirection', name: 'response_redirection')]
