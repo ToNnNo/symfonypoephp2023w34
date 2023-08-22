@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TwigController!{% endblock %}
+
+{% block body %}
+    <h1>Twig</h1>
+
+    <p>
+        <a href="https://twig.symfony.com/doc/3.x/" target="_blank">Documentation Twig</a>
+    </p>
+
+    <ul>
+        <li>{{ '{{  }}' }} => afficher la valeur d'une variable ou évaluer une expression</li>
+        <li>{{ '{%  %}' }} => utiliser les structures itératives, conditionnelles et tags</li>
+        <li>{{ '{#  #}' }} => Commentaire</li>
+    </ul>
+
+    <h3>Interpolation</h3>
+
+    <p>Bonjour {{ name }}</p>
+
+    <p> 1 + 2 = {{ 1 + 2 }}</p>
+
+    <h3>Structure iterative</h3>
+    <div>
+        <h4>Simple for</h4>
+        <ul>
+            {% for value in 1..4 %}
+                <li> {{ value }} </li>
+            {% endfor %}
+        </ul>
+
+        <h4>Notification</h4>
+        {% for notification in notifications %}
+            <p>{{ notification }}</p>
+        {% else %}
+            <p>Aucune notification</p>
+        {% endfor %}
+
+        <h4>Utilisateur</h4>
+        <dl>
+            {% for key, value in user %}
+                <dt>({{ loop.index }}) {{ key }}</dt>
+                <dd>({{ loop.index0 }}) {{ value }}</dd>
+            {% endfor %}
+        </dl>
+    </div>
+
+    <h3>Structure conditionnelle</h3>
+    <div>
+        {% if name == "John" %}
+            <p>Bonjour John</p>
+        {% endif %}
+
+        {% set temperature = 31 %}
+
+        {% if temperature > 30 %}
+            <p>Il fait très chaud</p>
+        {% elseif temperature > 20 %}
+            <p>Il fait chaud</p>
+        {% else %}
+            <p>Il fait pas chaud</p>
+        {% endif %}
+
+        {% if temperature is even %}
+            <p>La valeur de température est paire</p>
+        {% else %}
+            <p>La valeur de température est impaire</p>
+        {% endif %}
+
+        {% if notifications is empty %}
+            <p>Aucun nouveau message</p>
+        {% endif %}
+
+        {% if 5 in [1, 2, 3, 4, 5] %}
+            <p>5 est présent dans notre tableau de valeurs</p>
+        {% endif %}
+    </div>
+
+    <h3>Auto Escape</h3>
+    <div>
+        <p>Par défaut la variable html sécurité:  {{ html }}</p>
+
+        <p>Pour afficher la variable html en brut: {{ html|raw }}</p>
+    </div>
+
+    <h3>Filtres</h3>
+    <div>
+        <h4>JSON encode</h4>
+        <p>{{ user|json_encode }}</p>
+
+        <h4>Length</h4>
+        <p>Il y a {{ user|length }} dans le tableau user</p>
+
+        <h4>Humanize</h4>
+        <p>{{ 'dangerouslySetInnerHTML' | humanize }}</p>
+
+        <h4>Date</h4>
+        {# {{ date()|format_datetime }} #}
+
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
