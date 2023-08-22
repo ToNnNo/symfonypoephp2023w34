@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RouteController!{% endblock %}
+
+{% block body %}
+    <h1>Les Routes</h1>
+    <h2>Liste des valeurs</h2>
+
+    <p>
+        <a href="{{ path('route_index') }}">Retour</a>
+    </p>
+
+    <p>Title = {{ title }}</p>
+    <p>Page = {{ page }}</p>
+
+    <a href="{{ path('route_list', {'page': 1}) }}">Page 1</a> -
+    <a href="{{ path('route_list', {'page': 2}) }}">Page 2</a> -
+    <a href="{{ path('route_list', {'page': 3}) }}">Page 3</a>
+{% endblock %}

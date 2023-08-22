@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RouteController!{% endblock %}
+
+{% block body %}
+    <h1>Les Routes</h1>
+
+    <p>
+        <a href="{{ path('route_index') }}">Retour</a>
+    </p>
+
+    <h2>Qui est {{ name }} ?</h2>
+
+    {# p*3>lorem #}
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa doloribus exercitationem explicabo molestiae
+        pariatur possimus quidem temporibus voluptates. Aliquam aperiam consectetur deserunt explicabo facere natus
+        nihil non perspiciatis sequi sit.</p>
+    <p>A assumenda delectus dolorem dolorum ducimus est hic id in iure
+        laboriosam nihil officia, quo saepe suscipit tempore temporibus ullam vitae voluptates! Accusantium consequuntur
+        hic in placeat quis recusandae vero.</p>
+    <p>Aut delectus eligendi id odio officiis quae reprehenderit similique
+        voluptatem? Adipisci aperiam at consequuntur cumque, deleniti est excepturi fuga id iure nemo non optio,
+        praesentium quae quisquam sapiente totam vero.</p>
+
+{% endblock %}

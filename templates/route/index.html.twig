@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RouteController!{% endblock %}
+
+{% block body %}
+    <h1>Les Routes</h1>
+
+    <p>
+        <a href="{{ path('route_contact') }}">Afficher la page contact</a> -
+        <a href="{{ path('route_list') }}"> Afficher la liste des valeurs </a>
+    </p>
+
+    <p>Information Utilisateur par le nom</p>
+    <ul>
+        <li>
+            <a href="{{ path('route_name', {'name': 'nicolas'}) }}">Qui est Nicolas?</a>
+        </li>
+        <li>
+            <a href="{{ path('route_name', {'name': 'luis'}) }}">Qui est Luis?</a>
+        </li>
+        <li>
+            <a href="{{ path('route_name', {'name': 'yanis'}) }}">Qui est Yanis?</a>
+        </li>
+    </ul>
+
+    <p>Information Utilisateur par l'id</p>
+    <ul>
+        <li>
+            <a href="{{ path('route_name_id', {'id': 1}) }}">Qui est Léa?</a>
+        </li>
+        <li>
+            <a href="{{ path('route_name_id', {'id': 2}) }}">Qui est Souhail?</a>
+        </li>
+        <li>
+            <a href="{{ path('route_name_id', {'id': 3}) }}">Qui est Arnaud?</a>
+        </li>
+    </ul>
+
+{% endblock %}
