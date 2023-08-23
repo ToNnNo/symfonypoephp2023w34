@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercice Trailer{% endblock %}
+
+{% block body %}
+
+    <h1>Exercice trailer</h1>
+
+    <nav class="nav">
+        {% for alias, trailer in trailers %}
+            <a href="{{ path('trailer_index', {'alias': alias}) }}" class="nav-link">{{ trailer.title|upper }}</a>
+        {% endfor %}
+    </nav>
+
+    {% if trailer is not null %}
+        <h2>{{ trailer.title }}</h2>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ trailer.code }}"></iframe>
+    {% else %}
+        <p class="lead">Choisissez une video</p>
+    {% endif %}
+
+{% endblock %}

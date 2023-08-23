@@ -1,0 +1,12 @@
+Créer un controller BandeAnnonce (Trailer)
+
+afficher 3 titres de film dans des liens -> affiche un lecture Youtube avec bande annonce
+
+url doit avoir accès à la video avec un alias (ex: /trailer/dark-vador)
+
+[ 'dark-valor' => ['code' => ..., title => ...] ]
+
+titre du film
+lecteur
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EzqQ99aUxgI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
