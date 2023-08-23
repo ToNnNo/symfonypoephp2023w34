@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TwigController!{% endblock %}
+{% block title %}Twig{% endblock %}
+
+{% block header %}
+    {{ parent() }} {# affiche le contenu du block header de base.html.twig (parent) #}
+    <h2>Le moteur de template Twig</h2>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        figure { margin: 0 }
+    </style>
+    <link rel="stylesheet" href="{{ asset("css/twig.css") }}" />
+{% endblock %}
 
 {% block body %}
-    <h1>Twig</h1>
 
     <h2>Accéder aux valeurs d'un tableau ou d'un objet</h2>
 
@@ -21,6 +32,21 @@
         <dt>Phone:</dt>
         <dd>{{ contact.phone }}</dd>
     </dl>
+
+    <h2>Les assets</h2>
+
+    <figure>
+        <img src="{{ asset('images/loxy.jpeg') }}" alt="Chien extraterrestre" width="300" />
+        <figcaption>
+            <a href="{{ asset('images/loxy.jpeg') }}" target="_blank">Chien extraterrestre</a>
+        </figcaption>
+    </figure>
+
+    <h2>Include</h2>
+
+    {% set name = "Stéphane" %}
+
+    {{ include('_partial/notification.html.twig') }}
 
 {% endblock %}
 
