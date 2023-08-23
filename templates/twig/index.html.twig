@@ -96,13 +96,38 @@
         <p>{{ 'dangerouslySetInnerHTML' | humanize }}</p>
 
         <h4>Date</h4>
-        {# {{ date()|format_datetime }} #}
+        {{ date()|format_datetime }}
 
     </div>
 
+    <h3>Fonctions</h3>
+
+    {{ dump(['hello', 'world', 'coucou']) }}
+    {% dump("coucou") %}
+
+    {{ max(1, 3, 2, 4) }}
+
+    {% import _self as macro %} {# _self fait référence au fichier dans lequel on se trouve #}
+
+    <p>{{ macro.hello() }}</p>
+    <p>{{ macro.hello("John") }}</p>
+
+    <h3>Arguments nommés</h3>
+
+    <p>{{ "yesterday"|date(timezone="Europe/Paris") }}</p>
+    <p>{{ "now"|date(timezone="Europe/Paris") }}</p>
+    <p>{{ "tomorrow"|date(timezone="Europe/Paris") }}</p>
+
+
+    <p>
+        <a href="{{ path('twig_next') }}">Voir la suite</a>
+    </p>
+
 {% endblock %}
 
-
+{% macro hello(name = "World") %}
+    Hello {{ name }}
+{% endmacro %}
 
 
 

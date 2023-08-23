@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\ValueObject\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +23,18 @@ class TwigController extends AbstractController
             'user' => $user,
             'notifications' => $notifications,
             'html' => $html
+        ]);
+    }
+
+    #[Route('/next', name: 'next')]
+    public function next(): Response
+    {
+        $user = ['firstname' => "John", 'lastname' => "Doe", 'email' => "john.doe@gmail.com"];
+        $contact = new Contact("Jean", "Dupond", "jean.dupond@gmail.com", "06 118 218 00");
+
+        return $this->render('twig/next.html.twig', [
+            'user' => $user,
+            'contact' => $contact
         ]);
     }
 }

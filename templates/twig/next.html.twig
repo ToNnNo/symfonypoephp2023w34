@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TwigController!{% endblock %}
+
+{% block body %}
+    <h1>Twig</h1>
+
+    <h2>Accéder aux valeurs d'un tableau ou d'un objet</h2>
+
+    <p>L'adresse email de {{ user['firstname']|upper }} {{ user.lastname|upper }} est {{ user.email }}</p>
+
+    {% set array = [1, 2, 3] %}
+
+    <p>array[0] = {{ array[0] }}</p>
+
+    <h3>Information de {{ contact.firstname }} {{ contact.lastname }}</h3>
+
+    <dl>
+        <dt>Email:</dt>
+        <dd>{{ contact.email }}</dd>
+        <dt>Phone:</dt>
+        <dd>{{ contact.phone }}</dd>
+    </dl>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
