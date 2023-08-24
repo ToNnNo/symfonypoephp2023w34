@@ -22,14 +22,21 @@
                 {% endblock %}
             </header>
             <nav class="nav">
-                <a href="#" class="nav-link">Accueil</a>
+                <a href="{{ path('home_index') }}" class="nav-link">Accueil</a>
                 <a href="{{ path('sandbox_index') }}" class="nav-link">Sandbox</a>
                 <a href="{{ path('response_index') }}" class="nav-link">Les réponses</a>
                 <a href="{{ path('request_index') }}" class="nav-link">L'objet Request</a>
                 <a href="{{ path('twig_index') }}" class="nav-link">Twig</a>
                 <a href="{{ path('trailer_index') }}" class="nav-link">Exercice trailer</a>
+                <a href="{{ path('book_index') }}" class="nav-link">Liste des livres</a>
             </nav>
-            <main>
+            <main class="py-3">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        <p class="text-{{ type }}">{{ message }}</p>
+                    {% endfor %}
+                {% endfor %}
+
                 {% block main %}
                     {% block body %}{% endblock %}
                 {% endblock %}

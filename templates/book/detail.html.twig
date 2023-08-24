@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ book.title | title }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/twig.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+    <div class="mb-3">
+        <a href="{{ path('book_index') }}" class="btn btn-outline-dark btn-sm">Revenir à la liste des livres</a>
+    </div>
+
+    <h2>{{ book.title }}</h2>
+
+    <p><b>Date de publication:</b> {{ book.publicationDate | format_date('full', locale="fr") }}</p>
+
+    <p class="mb-0 fw-bold">Résumé:</p>
+    <div>
+        {{ book.summary | raw }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un livre{% endblock %}
+
+{% block body %}
+    <div class="mb-3">
+        <a href="{{ path('book_index') }}" class="btn btn-outline-dark btn-sm">Revenir à la liste des livres</a>
+    </div>
+
+    {{ form_start(bookForm) }}
+        {{ form_row(bookForm.title) }}
+
+        {{ form_rest(bookForm) }}
+
+        <button class="btn btn-outline-primary btn-sm">Enregistrer</button>
+    {{ form_end(bookForm) }}
+
+{% endblock %}

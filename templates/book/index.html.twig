@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+    <div class="mb-3">
+        <a href="{{ path('book_add') }}" class="btn btn-outline-dark btn-sm">Ajouter un livre</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Date de Parution</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publicationDate | format_date('full', locale="fr") }}</td>
+                <td>
+                    <a href="{{ path('book_detail', { 'id': book.id }) }}">Voir le livre</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
