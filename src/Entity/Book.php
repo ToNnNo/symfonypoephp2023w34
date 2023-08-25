@@ -26,6 +26,9 @@ class Book
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $publication_date = null;
 
+    #[ORM\ManyToOne]
+    private ?Author $author = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +66,18 @@ class Book
     public function setPublicationDate(?\DateTimeInterface $publication_date): static
     {
         $this->publication_date = $publication_date;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

@@ -13,6 +13,7 @@
             <th>ID</th>
             <th>Titre</th>
             <th>Date de Parution</th>
+            <th>Auteur</th>
             <th></th>
         </tr>
         </thead>
@@ -22,6 +23,9 @@
                 <td>{{ book.id }}</td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.publicationDate | format_date('full', locale="fr") }}</td>
+                <td>
+                    {{ book.author.name ?? "-" }}
+                </td>
                 <td>
                     <a href="{{ path('book_detail', { 'id': book.id }) }}">Voir le livre</a>
                 </td>
