@@ -71,11 +71,23 @@ class BookController extends AbstractController
         ]);
     }
 
-    #[Route('/edit', name: 'edit')]
-    public function edit(): Response
+    #[Route('/edit/{id}', name: 'edit', requirements: ['id' => "\d+"])]
+    public function edit(int $id, BookRepository $bookRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
-        return $this->render('book/form.html.twig', [
+        $book = $bookRepository->find($id);
 
+        $form = $this->createForm(BookType::class, $book);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->flush();
+
+            $this->addFlash("success", "Le livre a bien été modifié");
+        }
+
+        return $this->render('book/form.html.twig', [
+            'bookForm' => $form,
         ]);
     }
 

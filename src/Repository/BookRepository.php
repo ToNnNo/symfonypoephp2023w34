@@ -24,8 +24,9 @@ class BookRepository extends ServiceEntityRepository
     public function findAllWithAuthor(): array
     {
         return $this->createQueryBuilder('book')
-            ->select(['book', 'author'])
+            ->select(['book', 'author', 'genre'])
             ->leftJoin('book.author', 'author')
+            ->leftJoin('book.genre', 'genre')
             ->orderBy('book.id')
             ->getQuery()
             ->getResult()
@@ -38,9 +39,10 @@ class BookRepository extends ServiceEntityRepository
 
         return $this->getEntityManager()
             ->createQuery(<<<SQL
-                SELECT book, author
+                SELECT book, author, genre
                 FROM $bookFQCN book
                 LEFT JOIN book.author author
+                LEFT JOIN book.genre genre
                 WHERE book.title LIKE :title
                 ORDER BY book.id
             SQL)

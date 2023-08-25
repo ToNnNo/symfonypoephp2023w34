@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des genres{% endblock %}
+
+{% block body %}
+    <div class="mb-3">
+        <a href="{{ path('genre_add') }}" class="btn btn-outline-dark btn-sm">Ajouter un genre</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for genre in genres %}
+            <tr>
+                <td>{{ genre.id }}</td>
+                <td>{{ genre.name }}</td>
+                <td class="text-end">
+                    <div class="btn-group btn-group-sm">
+                        <a href="{{ path('genre_edit', { 'id': genre.id }) }}" class="btn btn-outline-primary">Modifier</a>
+                        <a href="{{ path('genre_delete', { 'id': genre.id, 'token': csrf_token('delete-genre') }) }}"
+                           class="btn btn-outline-danger">Supprimer</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
