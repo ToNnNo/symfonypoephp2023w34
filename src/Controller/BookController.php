@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Form\BookSearchType;
 use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,13 +16,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(BookRepository $bookRepository): Response
+    public function index(Request $request, BookRepository $bookRepository): Response
     {
-        // récupère toutes les livres de la table
-        $books = $bookRepository->findAll();
+        // récupère tous les livres de la table book
+        // $books = $bookRepository->findAll();
+
+        $form = $this->createForm(BookSearchType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            $data = $form->getData();
+
+            // récupère tous les livres et auteurs associés qui correspondent à la valeur demandé
+            $books = $bookRepository->search($data['q']);
+        } else {
+            // récupère tous les livres et leurs auteurs associés
+            $books = $bookRepository->findAllWithAuthor();
+        }
 
         return $this->render('book/index.html.twig', [
-            'books' => $books
+            'books' => $books,
+            'bookSearchForm' => $form
         ]);
     }
 

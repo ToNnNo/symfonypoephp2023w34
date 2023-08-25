@@ -21,6 +21,34 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function findAllWithAuthor(): array
+    {
+        return $this->createQueryBuilder('book')
+            ->select(['book', 'author'])
+            ->leftJoin('book.author', 'author')
+            ->orderBy('book.id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function search(string $q): array
+    {
+        $bookFQCN = Book::class;
+
+        return $this->getEntityManager()
+            ->createQuery(<<<SQL
+                SELECT book, author
+                FROM $bookFQCN book
+                LEFT JOIN book.author author
+                WHERE book.title LIKE :title
+                ORDER BY book.id
+            SQL)
+            ->setParameter('title', "%".$q."%")
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */
