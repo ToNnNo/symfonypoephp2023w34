@@ -23,7 +23,9 @@ class GenreController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        $genres = $this->repository->findAll();
+        // $genres = $this->repository->findAll();
+
+        $genres = $this->repository->findAllWithBook();
 
         return $this->render('genre/index.html.twig', [
             'genres' => $genres

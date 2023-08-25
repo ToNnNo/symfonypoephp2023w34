@@ -12,6 +12,7 @@
         <tr>
             <th>ID</th>
             <th>Nom</th>
+            <th>Livres</th>
             <th></th>
         </tr>
         </thead>
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ genre.id }}</td>
                 <td>{{ genre.name }}</td>
+                <td>{{ genre.books | length }} livres</td>
                 <td class="text-end">
                     <div class="btn-group btn-group-sm">
                         <a href="{{ path('genre_edit', { 'id': genre.id }) }}" class="btn btn-outline-primary">Modifier</a>

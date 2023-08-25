@@ -21,6 +21,20 @@ class GenreRepository extends ServiceEntityRepository
         parent::__construct($registry, Genre::class);
     }
 
+    /**
+     * @return Genre[] Returns an array of Genre objects
+     */
+    public function findAllWithBook(): array
+    {
+        return $this->createQueryBuilder('g')
+            ->select(["g", "b"])
+            ->leftJoin("g.books", "b")
+            ->orderBy('g.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Genre[] Returns an array of Genre objects
 //     */
