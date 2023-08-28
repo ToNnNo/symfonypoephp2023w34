@@ -1,0 +1,8 @@
+
+Dans le controller Book:
+
+- la liste des livres soit être accessibles par tous les visiteurs
+
+- le détail d'un livre est accessible par les utilisateurs connectés (ROLE_USER)
+
+- l'ajout d'un livre n'est accesssible que par les administrateurs (ROLE_ADMIN)

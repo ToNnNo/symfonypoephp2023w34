@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/book', name: 'book_')]
 class BookController extends AbstractController
@@ -41,6 +42,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/add', name: 'add')]
+    #[IsGranted('ROLE_ADMIN', statusCode: 404)]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $book = new Book();
@@ -72,6 +74,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'edit', requirements: ['id' => "\d+"])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, BookRepository $bookRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $book = $bookRepository->find($id);
@@ -92,6 +95,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/detail/{id}', name: 'detail', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_USER')]
     public function detail(int $id, BookRepository $bookRepository): Response
     {
         $book = $bookRepository->find($id);
@@ -107,6 +111,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/delete', name: 'delete')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(): Response
     {
 

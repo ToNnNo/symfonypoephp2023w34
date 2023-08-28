@@ -3,9 +3,11 @@
 {% block title %}Liste des livres{% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="mb-3">
         <a href="{{ path('book_add') }}" class="btn btn-outline-dark btn-sm">Ajouter un livre</a>
     </div>
+    {% endif %}
 
     {{ form(bookSearchForm) }}
 
@@ -33,8 +35,12 @@
                     {{ book.author.name ?? "-" }}
                 </td>
                 <td class="text-end">
-                    <a href="{{ path('book_detail', { 'id': book.id }) }}">Voir le livre</a> -
-                    <a href="{{ path('book_edit', { 'id': book.id }) }}">Modifier le livre</a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('book_detail', { 'id': book.id }) }}">Voir le livre</a> -
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('book_edit', { 'id': book.id }) }}">Modifier le livre</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
