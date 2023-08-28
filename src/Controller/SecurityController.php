@@ -26,6 +26,6 @@ class SecurityController extends AbstractController
 
     #[Route('/logout', name: 'security_logout')]
     public function logout(): Response {
-        throw new \Exception("Vous ne devriez pas être ici");
+        throw new \Exception("Vous ne devriez pas atteindre cette route");
     }
 }

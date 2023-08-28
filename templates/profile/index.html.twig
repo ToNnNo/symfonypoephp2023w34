@@ -6,6 +6,12 @@
 
     <h2>Mon profil utilisateur</h2>
 
+    {% if is_granted('ROLE_ADMIN') %}
+    <nav>
+        <a href="{{ path('profile_users') }}">Afficher la liste des utilisateurs connectés</a>
+    </nav>
+    {% endif %}
+
     <p>...</p>
 
 {% endblock %}

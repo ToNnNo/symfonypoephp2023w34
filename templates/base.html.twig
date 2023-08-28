@@ -32,9 +32,18 @@
                 <a href="{{ path('book_index') }}" class="nav-link">Liste des livres</a>
                 <a href="{{ path('genre_index') }}" class="nav-link">Liste des genres</a>
 
-                <a href="{{ path('security_login') }}" class="nav-link">Se connecter</a>
-                <a href="{{ path('profile_index') }}" class="nav-link">Profil Utilisateur</a>
+                {% if not app.user %} {# si l'utilisateur n'est pas connecté #}
+                    <a href="{{ path('security_login') }}" class="nav-link">Se connecter</a>
+                {% else %}
+                    <a href="{{ path('profile_index') }}" class="nav-link">Profil Utilisateur</a>
+                    <a href="{{ path('security_logout') }}" class="nav-link">Déconnexion</a>
+                {% endif %}
             </nav>
+            {% if app.user %} {# si l'utilisateur est connecté #}
+            <div class="text-end">
+                Bonjour {{ app.user.userIdentifier }} !
+            </div>
+            {% endif %}
             <main class="py-3">
                 {% for type, messages in app.flashes %}
                     {% for message in messages %}
