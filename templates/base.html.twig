@@ -31,6 +31,9 @@
                 <a href="{{ path('trailer_index') }}" class="nav-link">Exercice trailer</a>
                 <a href="{{ path('book_index') }}" class="nav-link">Liste des livres</a>
                 <a href="{{ path('genre_index') }}" class="nav-link">Liste des genres</a>
+
+                <a href="{{ path('security_login') }}" class="nav-link">Se connecter</a>
+                <a href="{{ path('profile_index') }}" class="nav-link">Profil Utilisateur</a>
             </nav>
             <main class="py-3">
                 {% for type, messages in app.flashes %}
