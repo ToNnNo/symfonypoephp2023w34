@@ -98,7 +98,7 @@ class BookController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function detail(int $id, BookRepository $bookRepository): Response
     {
-        $book = $bookRepository->find($id);
+        $book = $bookRepository->findComplete($id);
 
         // $book == null
         if (!$book) {

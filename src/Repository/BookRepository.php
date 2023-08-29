@@ -21,6 +21,21 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function findComplete(int $id): ?Book
+    {
+        return $this->createQueryBuilder('book')
+            ->select('book')
+            ->leftJoin('book.author', 'author')
+            ->addSelect('author')
+            ->leftJoin('book.genre', 'genre')
+            ->addSelect('genre')
+            ->where('book.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     public function findAllWithAuthor(): array
     {
         return $this->createQueryBuilder('book')

@@ -17,8 +17,18 @@
     <p><b>Date de publication:</b> {{ book.publicationDate | format_date('full', locale="fr") }}</p>
 
     <p class="mb-0 fw-bold">Résumé:</p>
-    <div>
+    <div class="mb-3">
         {{ book.summary | raw }}
     </div>
+
+    {# accessible uniquement pour les abonnés premium #}
+    {% if is_granted('BOOK_VIEW', book) %}
+        <p><b>Genre:</b> {{ book.genre.name | default("Non défini") }}</p>
+        <p><b>Auteur:</b> {{ book.author.name ?? "Non défini" }}</p>
+    {% else %}
+        <p class="text-primary border border-primary p-2 rounded">
+            ( ! ) Pour avoir accès à l'ensemble des informations, abonnez vous à notre site !
+        </p>
+    {% endif %}
 
 {% endblock %}
