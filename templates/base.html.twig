@@ -36,6 +36,8 @@
                     {{ 'about' | trans(domain='app') }}
                 </a>
 
+                <a href="{{ path('service_index') }}" class="nav-link">Les services</a>
+
                 {% if not app.user %} {# si l'utilisateur n'est pas connecté #}
                     <a href="{{ path('security_login') }}" class="nav-link">Se connecter</a>
                 {% else %}
