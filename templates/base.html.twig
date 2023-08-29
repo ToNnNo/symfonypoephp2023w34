@@ -31,6 +31,7 @@
                 <a href="{{ path('trailer_index') }}" class="nav-link">Exercice trailer</a>
                 <a href="{{ path('book_index') }}" class="nav-link">Liste des livres</a>
                 <a href="{{ path('genre_index') }}" class="nav-link">Liste des genres</a>
+                <a href="{{ path('translation_index') }}" class="nav-link">Translation</a>
 
                 {% if not app.user %} {# si l'utilisateur n'est pas connecté #}
                     <a href="{{ path('security_login') }}" class="nav-link">Se connecter</a>

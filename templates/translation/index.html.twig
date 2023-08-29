@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Traduction{% endblock %}
+
+{% block body %}
+    <h2>Traduction de l'interface</h2>
+
+    <div class="mb-3">
+        <a href="{{ path('translation_index', {'_locale': 'fr'}) }}">Français</a> -
+        <a href="{{ path('translation_index', {'_locale': 'en'}) }}">English</a>
+    </div>
+
+    <p class="lead">{{ welcome | capitalize }}</p>
+
+    <p>{{ 'symfony.is.great' | trans }}</p>
+
+{% endblock %}

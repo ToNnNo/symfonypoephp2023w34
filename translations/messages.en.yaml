@@ -1,0 +1,8 @@
+welcome in our app: welcome in our app
+
+symfony:
+  is:
+    great: "Symfony is great"
+    amazing: "Symfony is amazing"
+  has:
+    bundles: "Symfony has bundles"
