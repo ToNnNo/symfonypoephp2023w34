@@ -6,3 +6,7 @@ symfony:
     amazing: "Symfony is amazing"
   has:
     bundles: "Symfony has bundles"
+
+hello:
+  world: 'Hello world'
+  name: 'Hello %name%'

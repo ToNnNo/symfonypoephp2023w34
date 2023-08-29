@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'about' | trans }}{% endblock %}
+
+{% trans_default_domain 'app' %}
+
+{% block body %}
+
+    <h2>{{ 'about' | trans }}</h2>
+
+    <div class="mb-3">
+        <a href="{{ path('translation_about', {'_locale': 'fr'}) }}">Français</a> -
+        <a href="{{ path('translation_about', {'_locale': 'en'}) }}">English</a>
+    </div>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi aspernatur, dolorem ea esse excepturi
+        expedita explicabo fugit incidunt magni minus modi odit quas quisquam quo sint soluta totam velit.</p>
+    <p>Ab adipisci aspernatur culpa, dicta dolore doloribus eaque, error eum facilis iure laborum, laudantium modi
+        molestiae molestias mollitia natus quam ratione sit totam voluptas? At culpa harum pariatur quaerat tenetur!</p>
+{% endblock %}

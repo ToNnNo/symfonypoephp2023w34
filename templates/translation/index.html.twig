@@ -14,4 +14,15 @@
 
     <p>{{ 'symfony.is.great' | trans }}</p>
 
+    <p>{{ 'symfony.is.amazing' | trans }}</p>
+
+    <p>{{ 'symfony.has.bundles' | trans }}</p>
+
+    <p>{% trans %} symfony.is.great {% endtrans %}</p>
+
+    <h3>Traduction avec paramètre</h3>
+
+    <p>{% trans with {'%name%': 'Stéphane'} %} hello.name {% endtrans %}</p>
+
+    <p>{{ 'hello.name'|trans({'%name%': 'Souhail'}) }}</p>
 {% endblock %}
