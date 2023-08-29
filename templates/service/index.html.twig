@@ -6,4 +6,10 @@
     <h2>Les services</h2>
 
     <p class="lead">{{ message }}</p>
+
+    <div>
+        <a href="{{ path('service_send_random_message') }}" class="btn btn-outline-primary btn-sm">
+            Envoyer le message par email
+        </a>
+    </div>
 {% endblock %}
