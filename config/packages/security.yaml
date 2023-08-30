@@ -8,19 +8,27 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
+        # used to reload user from session & other features (e.g. switch_user)
         users_in_memory:
             memory:
                 users:
-                    user: { password: '$2y$13$D6KqNZyR7K0bl0KKoF2Wm.uf2v9cqj1uD.S0ajDjd0P.gn5HiDC2G', roles: ['ROLE_USER'] }
-                    john: { password: '$2y$13$rkETPHPRoHJOE1Rjc2ZOwO0mK0A0T44ykMCuHXvVYzn1LA93u8aUC', roles: ['ROLE_USER'] }
-                    admin: { password: '$2y$13$SdzGBvT5dEdmEYsU13V6QOj/WPnqc0iKlDLYK7x5q0aSDWFXBul4K', roles: ['ROLE_ADMIN'] }
+                    user: { password: '$2y$13$D6KqNZyR7K0bl0KKoF2Wm.uf2v9cqj1uD.S0ajDjd0P.gn5HiDC2G', roles: [ 'ROLE_USER' ] }
+                    john: { password: '$2y$13$rkETPHPRoHJOE1Rjc2ZOwO0mK0A0T44ykMCuHXvVYzn1LA93u8aUC', roles: [ 'ROLE_USER' ] }
+                    admin: { password: '$2y$13$SdzGBvT5dEdmEYsU13V6QOj/WPnqc0iKlDLYK7x5q0aSDWFXBul4K', roles: [ 'ROLE_ADMIN' ] }
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+        all_provider:
+            chain:
+                providers: ['app_user_provider', 'users_in_memory']
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: all_provider
             form_login:
                 login_path: security_login # indique l'adresse du formulaire d'authentification
                 check_path: security_login

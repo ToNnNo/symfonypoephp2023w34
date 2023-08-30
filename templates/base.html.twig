@@ -37,6 +37,7 @@
                 </a>
 
                 <a href="{{ path('service_index') }}" class="nav-link">Les services</a>
+                <a href="{{ path('user_index') }}" class="nav-link">Liste des utilisateurs</a>
 
                 {% if not app.user %} {# si l'utilisateur n'est pas connecté #}
                     <a href="{{ path('security_login') }}" class="nav-link">Se connecter</a>
@@ -47,7 +48,7 @@
             </nav>
             {% if app.user %} {# si l'utilisateur est connecté #}
             <div class="text-end">
-                Bonjour {{ app.user.userIdentifier }} !
+                Bonjour {{ app.user.name ?? app.user.userIdentifier }} !
             </div>
             {% endif %}
             <main class="py-3">
