@@ -7,6 +7,7 @@ use App\Entity\Book;
 use App\Normalizer\BookNormalizer;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
+use App\Repository\GenreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,6 +25,7 @@ class BookController extends AbstractController
     public function __construct(
         private readonly BookRepository         $bookRepository,
         private readonly AuthorRepository       $authorRepository,
+        private readonly GenreRepository        $genreRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly BookNormalizer         $bookNormalizer,
         private readonly SerializerInterface    $serializer,
@@ -65,9 +67,19 @@ class BookController extends AbstractController
         $book = $this->serializer->deserialize($content, Book::class, 'json');
 
         $data = json_decode($content, true);
-        $author = $this->authorRepository->find($data['author']);
-        if($author != null) {
-            $book->setAuthor($author);
+
+        if(array_key_exists('author', $data)) {
+            $author = $this->authorRepository->find($data['author']);
+            if ($author != null) {
+                $book->setAuthor($author);
+            }
+        }
+
+        if(array_key_exists('genre', $data)) {
+            $genre = $this->genreRepository->find($data['genre']);
+            if ($genre != null) {
+                $book->setGenre($genre);
+            }
         }
 
         // valider les contraintes
@@ -98,6 +110,23 @@ class BookController extends AbstractController
         $this->serializer->deserialize($content, Book::class, 'json', [
             AbstractNormalizer::OBJECT_TO_POPULATE => $book
         ]);
+
+        $data = json_decode($content, true);
+
+        if(array_key_exists('author', $data)) {
+            $author = $this->authorRepository->find($data['author']);
+            if ($author != null) {
+                $book->setAuthor($author);
+            }
+        }
+
+        if(array_key_exists('genre', $data)) {
+            $genre = $this->genreRepository->find($data['genre']);
+            if ($genre != null) {
+                $book->setGenre($genre);
+            }
+        }
+
 
         // valider les contraintes
         $errors = $this->validator->validate($book);
