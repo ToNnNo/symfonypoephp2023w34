@@ -2,8 +2,10 @@
 
 namespace App\Controller\API;
 
+use App\Entity\Author;
 use App\Entity\Book;
 use App\Normalizer\BookNormalizer;
+use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +23,7 @@ class BookController extends AbstractController
 
     public function __construct(
         private readonly BookRepository         $bookRepository,
+        private readonly AuthorRepository       $authorRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly BookNormalizer         $bookNormalizer,
         private readonly SerializerInterface    $serializer,
@@ -61,11 +64,17 @@ class BookController extends AbstractController
         // créer une instance de Book à partir des données
         $book = $this->serializer->deserialize($content, Book::class, 'json');
 
+        $data = json_decode($content, true);
+        $author = $this->authorRepository->find($data['author']);
+        if($author != null) {
+            $book->setAuthor($author);
+        }
+
         // valider les contraintes
         $errors = $this->validator->validate($book);
         if (count($errors) > 0) {
             // fait appelle à la méthode __toString()
-            $stringErrors = (string) $errors;
+            $stringErrors = (string)$errors;
             return $this->json($errors, Response::HTTP_BAD_REQUEST);
         }
 
@@ -94,7 +103,7 @@ class BookController extends AbstractController
         $errors = $this->validator->validate($book);
         if (count($errors) > 0) {
             // fait appelle à la méthode __toString()
-            $stringErrors = (string) $errors;
+            $stringErrors = (string)$errors;
             return $this->json($errors, Response::HTTP_BAD_REQUEST);
         }
 
