@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/book', name: 'api_book_')]
@@ -67,8 +68,21 @@ class BookController extends AbstractController
     #[Route('/{id}', name: 'edit', methods: ['PUT', 'PATCH'])]
     public function edit(Request $request, int $id): JsonResponse
     {
+        $book = $this->bookRepository->find($id);
 
-        return $this->json('');
+        if (!$book) {
+            return $this->json(['message' => 'Not Found', 'code' => 404], Response::HTTP_NOT_FOUND);
+        }
+
+        $content = $request->getContent();
+
+        $this->serializer->deserialize($content, Book::class, 'json', [
+            AbstractNormalizer::OBJECT_TO_POPULATE => $book
+        ]);
+
+        $this->entityManager->flush();
+
+        return $this->json(['message' => "OK", 'code' => 200], Response::HTTP_OK);
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
