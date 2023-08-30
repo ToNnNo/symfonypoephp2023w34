@@ -14,6 +14,12 @@
 
     <h2>{{ book.title }}</h2>
 
+    {% if book.image %}
+        <figure>
+            <img src="{{ asset('upload/' ~ book.image) }}" alt="Couverture du livre {{ book.title }}" class="img-fluid" />
+        </figure>
+    {% endif %}
+
     <p><b>Date de publication:</b> {{ book.publicationDate | format_date('full', locale="fr") }}</p>
 
     <p class="mb-0 fw-bold">Résumé:</p>

@@ -2,7 +2,6 @@
 
 namespace App\Controller\API;
 
-use App\Entity\Author;
 use App\Entity\Book;
 use App\Normalizer\BookNormalizer;
 use App\Repository\AuthorRepository;
@@ -126,7 +125,6 @@ class BookController extends AbstractController
                 $book->setGenre($genre);
             }
         }
-
 
         // valider les contraintes
         $errors = $this->validator->validate($book);

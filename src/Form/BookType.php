@@ -7,9 +7,11 @@ use App\Entity\Book;
 use App\Entity\Genre;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class BookType extends AbstractType
 {
@@ -26,6 +28,11 @@ class BookType extends AbstractType
                 'choice_label' => 'name',
                 'label' => "Genre: ",
                 'placeholder' => "-- Liste des genres --"
+            ])
+            ->add('file', FileType::class, [
+                'label' => "Image: ",
+                'mapped' => false,
+                'constraints' => new Image()
             ])
             ->add('summary', options: [
                 'label' => "Résumé: ",

@@ -8,10 +8,13 @@ use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/book', name: 'book_')]
 class BookController extends AbstractController
@@ -25,7 +28,7 @@ class BookController extends AbstractController
         $form = $this->createForm(BookSearchType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $data = $form->getData();
 
             // récupère tous les livres et auteurs associés qui correspondent à la valeur demandé
@@ -43,7 +46,7 @@ class BookController extends AbstractController
 
     #[Route('/add', name: 'add')]
     #[IsGranted('ROLE_ADMIN', statusCode: 404)]
-    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $book = new Book();
         /*$book
@@ -57,7 +60,25 @@ class BookController extends AbstractController
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
-        if ( $form->isSubmitted() && $form->isValid() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->get('file')->getData();
+
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move($this->getParameter('upload'), $newFilename);
+
+                    $book->setImage($newFilename);
+                } catch (FileException $e) {
+                    // ... $this->logger->error('...');
+                }
+            }
+
             // met l'entité dans la mémoire de doctrine
             $entityManager->persist($book);
             // execute les requêtes
@@ -82,7 +103,7 @@ class BookController extends AbstractController
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->flush();
 
