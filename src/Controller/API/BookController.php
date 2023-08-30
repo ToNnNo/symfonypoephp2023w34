@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api/book', name: 'api_book_')]
 class BookController extends AbstractController
@@ -22,7 +23,8 @@ class BookController extends AbstractController
         private readonly BookRepository         $bookRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly BookNormalizer         $bookNormalizer,
-        private readonly SerializerInterface    $serializer
+        private readonly SerializerInterface    $serializer,
+        private readonly ValidatorInterface     $validator
     )
     {
     }
@@ -59,6 +61,14 @@ class BookController extends AbstractController
         // créer une instance de Book à partir des données
         $book = $this->serializer->deserialize($content, Book::class, 'json');
 
+        // valider les contraintes
+        $errors = $this->validator->validate($book);
+        if (count($errors) > 0) {
+            // fait appelle à la méthode __toString()
+            $stringErrors = (string) $errors;
+            return $this->json($errors, Response::HTTP_BAD_REQUEST);
+        }
+
         $this->entityManager->persist($book);
         $this->entityManager->flush();
 
@@ -79,6 +89,14 @@ class BookController extends AbstractController
         $this->serializer->deserialize($content, Book::class, 'json', [
             AbstractNormalizer::OBJECT_TO_POPULATE => $book
         ]);
+
+        // valider les contraintes
+        $errors = $this->validator->validate($book);
+        if (count($errors) > 0) {
+            // fait appelle à la méthode __toString()
+            $stringErrors = (string) $errors;
+            return $this->json($errors, Response::HTTP_BAD_REQUEST);
+        }
 
         $this->entityManager->flush();
 
